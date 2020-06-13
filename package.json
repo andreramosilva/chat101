@@ -1,0 +1,23 @@
+{
+  "name": "chat101",
+  "version": "1.0.0",
+  "description": "https://github.com/florinpop17/app-ideas/blob/master/Projects/3-Advanced/Chat-App.md",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andreramosilva/chat101.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andreramosilva/chat101/issues"
+  },
+  "homepage": "https://github.com/andreramosilva/chat101#readme",
+  "devDependencies": {
+    "jest": "^26.0.1"
+  }
+}
