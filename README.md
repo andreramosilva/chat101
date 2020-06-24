@@ -12,6 +12,6 @@ Quick start :
 
 https://www.youtube.com/watch?v=FgnxcUQ5vho
 
-A litle more in deeph
+A litle more in depth
 
 https://www.youtube.com/watch?v=r9HdJ8P6GQI

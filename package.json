@@ -2,9 +2,10 @@
   "name": "chat101",
   "version": "1.0.0",
   "description": "https://github.com/florinpop17/app-ideas/blob/master/Projects/3-Advanced/Chat-App.md",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -19,5 +20,10 @@
   "homepage": "https://github.com/andreramosilva/chat101#readme",
   "devDependencies": {
     "jest": "^26.0.1"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0",
+    "soket.io": "0.0.1-security"
   }
 }
