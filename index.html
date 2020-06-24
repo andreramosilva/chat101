@@ -8,11 +8,32 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
         <script src='http://code.jquery.com/jquery-latest.min.js'></script>
-        <script src='http://socket.io/socket.io.js'></script>
-   
+        <script src='/socket.io/socket.io.js'></script>
+   <style>
+       body{
+           margin-top:30px
+       }
+       #messageArea{
+           display: none;
+       }
+   </style>
     </head>
     <body>
-        <div class = "container">
+        <div  class ="container">
+            <div id="userFormArea" class="row">
+                <div class="col-md-12">
+                    <form id="userForm">
+                        <div class="form-group">
+                            <label>Enter username</label>
+                            <input class="form-control" id="username"/>
+                            <br/>
+                            <input type="submit" class="btn btn-class-primary" value="Login"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="messageArea" class = "container">
             <div class="row">
                 <div class="col-md-4">
                     <div class="well">
@@ -38,6 +59,57 @@
         </div>
 
         
-        <script src="" async defer></script>
+        <script>
+            $(function(){
+                let socket = io.connect();
+                let $messageForm = $('#messageForm');
+                let $message = $('#message');
+                let $chat = $('#chat');
+                let $messageArea = $('#messageArea')
+                let $userFormArea = $('#userFormArea')
+                let $userForm = $('#userForm')
+                let $users = $('#users')
+                let $username = $('#username')
+
+                $messageForm.submit(function(e){
+                    e.preventDefault();
+                    console.log('subimited message')
+                    socket.emit('sendMessage',$message.val());
+                    $message.val('');
+                })
+                socket.on('newMessage',function(data){
+                $chat.append('<div class="well"><strong>'+data.user+'</strong>: '+data.msg +'</div>')
+            });
+
+            $userForm.submit(function(e){
+                    e.preventDefault();
+                    console.log('subimited message')
+
+                    socket.emit('newUser',$username.val(),function(data){
+                        console.log("New user Front")
+                        if(data){
+                            $userFormArea.hide();
+                            $messageArea.show();
+                        }
+                    });
+                    $username.val('');
+                });
+
+                socket.on('getUsers',function(data){
+                    let html = '';
+                    for(i=0;i<data.length;i++){
+                        html+='<li class="list-group-item">'+data[i]+'</li>';
+                    }
+                    $users.html(html);
+                })
+
+            });
+
+           
+
+
+
+
+        </script>
     </body>
 </html>

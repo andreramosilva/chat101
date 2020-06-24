@@ -24,6 +24,28 @@ io.sockets.on("connection", function (socket) {
   );
 
   //disconnect
-  connections.splice(connections.indexOf(socket), 1);
-  console.log(`Disconnected ,%s sockets connected`, connections.length);
+  socket.on("disconnect", function (data) {
+    console.log("disconnecting");
+    users.splice(users.indexOf(socket.username), 1);
+    updateUserNames();
+    connections.splice(connections.indexOf(socket), 1);
+    console.log(`Disconnected ,%s sockets connected`, connections.length);
+  });
+
+  //send message
+  socket.on("sendMessage", function (data) {
+    io.sockets.emit("newMessage", { msg: data, user: socket.username });
+    console.log(data);
+  });
+
+  socket.on("newUser", function (data, callback) {
+    console.log("new user");
+    callback(true);
+    socket.username = data;
+    users.push(socket.username);
+    updateUserNames();
+  });
+  function updateUserNames() {
+    io.sockets.emit("getUsers", users);
+  }
 });
